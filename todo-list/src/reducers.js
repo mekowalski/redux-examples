@@ -24,10 +24,22 @@ function todoApp(state = initialState, action) {
           }
         ]
       })
-      
+      case TOGGLE_TODO:
+        return Object.assign({}, state, {
+          todos: state.todos.map((todo, index) => {
+            if (index === action.index) {
+              return Object.assign({}, todo, {
+                completed: !todo.completed
+              })
+            }
+            return todo
+          })
+        })
     default:
       return state
   }
 }
 //1. not mutating STATE, create copy with Object.assign()
 //2. Return previous STATE in default case
+//Never write directly to STATE or its fields, instead return new objects
+//New todos is equal to Old todos concatenated with single new item at end (...state.todos)
