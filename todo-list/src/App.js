@@ -11,6 +11,7 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+          <p>I dont know how to actually get my action.js and reducers.js showing here</p>
           <a
             className="App-link"
             href="https://reactjs.org"

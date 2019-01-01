@@ -1,21 +1,22 @@
 import { VisibilityFilters } from './actions'
 
 const initialState = {
-  VisibilityFilter: VisibilityFilters.SHOW_ALL,
+  visibilityFilter: VisibilityFilters.SHOW_ALL,
   todos: []
 }
 
-function todoApp(state, action) {
-  if (typeof state === 'undefined') {
-    return initialState
-  }
-
-  //for now don't handle actions just return given state
-  return state
-}
-
 //ES6 syntax
+//Now handle SET_VISIBILITY_FILTER action
+//Change visibilityFilter on the state
 function todoApp(state = initialState, action) {
-  //for now don't handle actions just return given state
-  return state
+  switch (action.type) {
+    case SET_VISIBILITY_FILTER:
+        return Object.assign({}, state, {
+          visibilityFilter: action.filter
+        })
+    default:
+      return state
+  }
 }
+//1. not mutating STATE, create copy with Object.assign()
+//2. Return previous STATE in default case
