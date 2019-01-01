@@ -19,3 +19,11 @@ const ADD_TODO = 'ADD_TODO'
   type: SET_VISIBILTY_FILTER.
   fitler: SHOW_COMPLETED
 }
+
+//action creator
+function addTodo(text) {
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
