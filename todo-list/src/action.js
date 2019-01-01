@@ -1,29 +1,25 @@
 //Example ACTION represents adding a new todo item
-const ADD_TODO = 'ADD_TODO'
+//ACTION TYPES
+export const ADD_TODO = 'ADD_TODO'
+export const TOGGLE_TODO = 'TOGGLE_TODO'
+export const SET_VISIBILTY_FILTER = 'SET_VISIBILTY_FILTER'
 
-{
-  type: ADD_TODO.
-  text: 'Build my first Redux App'
+//CONSTANTS
+export const VisibleFilters = {
+  SHOW_ALL: 'SHOW_ALL',
+  SHOW_COMPLETED: 'SHOW_COMPLETED',
+  SHOW_ACTIVE: 'SHOW_ACTIVE'
 }
 
-//add another action to complete todo item
-//refer to specific todo item by INDEX
-//in real app it's wiser to generate unique ID every time a new item is created
-{
-  type: TOGGLE_TODO,
-  index: 5
+//ACTION CREATORS
+export function addTodo(text) {
+  return {type: ADD_TODO, text}
 }
 
-//add another action to change current visible todos
-{
-  type: SET_VISIBILTY_FILTER.
-  fitler: SHOW_COMPLETED
+export function toggleTodo(index) {
+  return {type: TOGGLE_TODO, index}
 }
 
-//action creator
-function addTodo(text) {
-  return {
-    type: ADD_TODO,
-    text
-  }
+export function setVisibleFilter(filter) {
+  return type: SET_VISIBILTY_FILTER, filter
 }
