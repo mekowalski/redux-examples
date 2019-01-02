@@ -4,18 +4,21 @@ import { combineReducers } from 'redux'
 //Explore Reducer Composition
 const { SHOW_ALL } = VisibilityFilters
 
-const initialState = {
-  visibilityFilter: VisibilityFilters.SHOW_ALL,
-  todos: []
-}
-
 //combineReducers()
 const todoApp = combineReducers({
   visibilityFilter,
   todos
 })
 
-export default todoApp
+//Reducer Composition
+function visibilityFilter(state = SHOW_ALL, action) {
+  switch (action.type) {
+    case SET_VISIBILITY_FILTER:
+      return action.filter
+    default:
+      return state
+  }
+}
 
 //Splitting Reducers
 function todos(state = [], action) {
@@ -42,25 +45,4 @@ function todos(state = [], action) {
   }
 }
 
-//Reducer Composition
-function visibilityFilter(state = SHOW_ALL, action) {
-  switch (action.type) {
-    case SET_VISIBILITY_FILTER:
-      return action.filter
-    default:
-      return state
-  }
-}
-
-//Rewrite main reducer as a function that calls the REDUCERS managing parts of the STATE
-//Then combines them into a single object
-//Doesn't need to know complete initial STATE anymore
-
-
-//1. not mutating STATE, create copy with Object.assign()
-//2. Return previous STATE in default case
-//Never write directly to STATE or its fields, instead return new objects
-//New todos is equal to Old todos concatenated with single new item at end (...state.todos)
-//todos alsi accepts STATE but STATE is an array
-//todoApp gives todos a slice of the STATE to manage and todos knows how to update just that slice
-//This is REDUCER COMPOSITION, fundamental patter of building Redux apps
+export default todoApp
