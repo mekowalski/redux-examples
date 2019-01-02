@@ -1,5 +1,17 @@
 import { VisibilityFilters, ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER } from './actions'
 
+//Explore Reducer Composition
+const { SHOW_ALL } = VisibilityFilters
+
+function visibilityFilter(state = SHOW_ALL, action) {
+  switch (action.type) {
+    case SET_VISIBILITY_FILTER:
+      return action.filter
+    default:
+      retutn state
+  }
+}
+
 const initialState = {
   visibilityFilter: VisibilityFilters.SHOW_ALL,
   todos: []
@@ -55,3 +67,6 @@ function todoApp(state = initialState, action) {
 //2. Return previous STATE in default case
 //Never write directly to STATE or its fields, instead return new objects
 //New todos is equal to Old todos concatenated with single new item at end (...state.todos)
+//todos alsi accepts STATE but STATE is an array
+//todoApp gives todos a slice of the STATE to manage and todos knows how to update just that slice
+//This is REDUCER COMPOSITION, fundamental patter of building Redux apps
