@@ -45,4 +45,7 @@ function todos(state = [], action) {
   }
 }
 
+//Log initial state
+console.log(store.getState())
+
 export default todoApp
