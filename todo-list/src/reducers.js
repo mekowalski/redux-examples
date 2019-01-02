@@ -3,15 +3,6 @@ import { VisibilityFilters, ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER } from 
 //Explore Reducer Composition
 const { SHOW_ALL } = VisibilityFilters
 
-function visibilityFilter(state = SHOW_ALL, action) {
-  switch (action.type) {
-    case SET_VISIBILITY_FILTER:
-      return action.filter
-    default:
-      retutn state
-  }
-}
-
 const initialState = {
   visibilityFilter: VisibilityFilters.SHOW_ALL,
   todos: []
@@ -42,25 +33,23 @@ function todos(state = [], action) {
   }
 }
 
-//ES6 syntax
-//Now handle SET_VISIBILITY_FILTER action
-//Change visibilityFilter on the state
-function todoApp(state = initialState, action) {
+//Reducer Composition
+function visibilityFilter(state = SHOW_ALL, action) {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
-      return Object.assign({}, state, {
-        visibilityFilter: action.filter
-      })
-    case ADD_TODO:
-      return Object,assign({}, state, {
-        todos: todos(state.todos, action)
-      })
-    case TOGGLE_TODO:
-      return Object.assign({}, state, {
-        todos: todos(state.todos, action)
-      })
+      return action.filter
     default:
       return state
+  }
+}
+
+//Rewrite main reducer as a function that calls the REDUCERS managing parts of the STATE
+//Then combines them into a single object
+//Doesn't need to know complete initial STATE anymore
+function todoApp(state = {}, action) {
+  return {
+    visibilityFilter: visibilityFilter(state.visibilityFilter, action),
+    todos: todos(state.todos, action)
   }
 }
 //1. not mutating STATE, create copy with Object.assign()
