@@ -1,4 +1,5 @@
 import { VisibilityFilters, ADD_TODO, TOGGLE_TODO, SET_VISIBILITY_FILTER } from './actions'
+import { combineReducers } from 'redux'
 
 //Explore Reducer Composition
 const { SHOW_ALL } = VisibilityFilters
@@ -7,6 +8,14 @@ const initialState = {
   visibilityFilter: VisibilityFilters.SHOW_ALL,
   todos: []
 }
+
+//combineReducers()
+const todoApp = combineReducers({
+  visibilityFilter,
+  todos
+})
+
+export default todoApp
 
 //Splitting Reducers
 function todos(state = [], action) {
@@ -46,12 +55,8 @@ function visibilityFilter(state = SHOW_ALL, action) {
 //Rewrite main reducer as a function that calls the REDUCERS managing parts of the STATE
 //Then combines them into a single object
 //Doesn't need to know complete initial STATE anymore
-function todoApp(state = {}, action) {
-  return {
-    visibilityFilter: visibilityFilter(state.visibilityFilter, action),
-    todos: todos(state.todos, action)
-  }
-}
+
+
 //1. not mutating STATE, create copy with Object.assign()
 //2. Return previous STATE in default case
 //Never write directly to STATE or its fields, instead return new objects
